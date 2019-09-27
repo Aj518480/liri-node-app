@@ -27,21 +27,25 @@ function concert(artist) {
   axios.get(queryUrl)
     .then(function (response) {
 
-      var bandData = response.data[0]
-
+      var bandData = response.data
+      for (let i = 0; i < bandData.length; i++) {
+        
+        
       //venue name
-      console.log(bandData.venue.name);
+      console.log(bandData[i].venue.name);
+      console.log("\n..........................\n")
 
       //venue location
-      //Am I putting the country or lat & Long???
-      console.log(bandData.venue.country)
+      console.log(bandData[i].venue.country)
+      console.log("\n..........................\n")
 
 
+      
       //date of event using moment.js
-      //Why is it coming back as undefined????
-      console.log(bandData.venue.datetime)
+      console.log(bandData[i].datetime)
+      console.log("\n..........................\n")
 
-
+      }
     })
     .catch(function (err) {
       console.log(err);
@@ -51,28 +55,34 @@ function concert(artist) {
 
 // Spotify-this-song function
 function spotifyThis(userInput) {
-
+//conditinal of check for empty string to default song
   spotify
-    .search({ type: 'track', query: userInput, limit: 1 })
+    .search({ type: 'track', query: userInput, limit: 10 })
     .then(function (response) {
-
+         var dataArr=response.tracks.items[i],
+        for (let i = 0; i < dataArr.length; i++) {
+         
+          
+        }
       console.log(JSON.stringify(response.tracks.items[0], null, 2));
-      //console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      console.log("\n..........................\n")
 
       //Spotify Artists
-      console.log(JSON.stringify(response.tracks.items[0].artists[0].name, null, 2));
+      console.log(JSON.stringify(response.tracks.items[0].artists[0].name));
+      console.log("\n..........................\n")
      
 
       //Spotify Song Name
-      console.log();
-       
+      console.log(response.tracks.items[0].name);
+      console.log("\n..........................\n") 
 
       //Link of Song
-      console.log();
-      
+      console.log(response.tracks.items[0].preview_url);
+      console.log("\n..........................\n")
 
       //Album of Song
-       console.log();
+       console.log(response.tracks.items[0].album.name);
+       console.log("\n..........................\n")
 
       //If no song is provided by default put "The Sign" by Ace of Base.
       console.log()
@@ -96,21 +106,26 @@ function movie(movieName) {
 
       //title of the movie
       console.log(movieData.Title)
-
+      console.log("\n..........................\n")
       //Year the movie came out
       console.log(movieData.Year)
+      console.log("\n..........................\n")
 
       //IMDB rating of Movie
       console.log(movieData.Ratings[0])
+      console.log("\n..........................\n")
 
       //Rotten Tomatoes Rating of the Movie
       console.log(movieData.Ratings[1])
+      console.log("\n..........................\n")
 
       //Country where the movie was produced
       console.log(movieData.Country)
+      console.log("\n..........................\n")
 
       //Plot of the Movie
       console.log(movieData.Plot)
+      console.log("\n..........................\n")
 
       //Actors in the movie
       console.log(movieData.Actors)
@@ -124,11 +139,11 @@ function movie(movieName) {
 function doWhatItSays() { 
      // use fs
     //us split sb use the user
-    // fs.readFile("do-what-it-says", (err, data) => {
+    // fs.readFile("random.txt", "utf8", (err, data) => {
     //   if (err) throw err;
     //   console.log(data);
     // });
-
+//week5 day 4
 }
 
 //Switch with a parameter of switchboard variable- Able to switch in between functions
@@ -151,9 +166,5 @@ switch (switchboard) {
 }
 
 
-
-
-
-// * `do-what-it-says`
 
 
