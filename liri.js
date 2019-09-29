@@ -17,41 +17,49 @@ var switchboard = process.argv[2];
 var userInput = process.argv.slice(3).join(" ");
 
 
-
-
 //Create a functions for each 1.Concert, 2.Spotify,3.Movie,4.Do what it says
 
 // Concert-this function
 function concert(artist) {
   var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
   axios.get(queryUrl)
-    .then(function (response) {
-
-      var bandData = response.data
+    .then(function (response){
+      
+      var bandData = response.data;
+      console.log(bandData);
+      
+    
       for (let i = 0; i < bandData.length; i++) {
-        
-        
-      //venue name
-      console.log(bandData[i].venue.name);
+      
+       
+
+       console.log(bandData.venue);
       console.log("\n..........................\n")
 
-      //venue location
-      console.log(bandData[i].venue.country)
+       //venue location
+      console.log(bandData.venue.country)
       console.log("\n..........................\n")
 
 
       
-      //date of event using moment.js
-      console.log(bandData[i].datetime)
-      console.log("\n..........................\n")
+       // date of event using moment.js
+      console.log(bandData.datetime).moment(show.datetime).format("MM/DD/YYYY")
+       console.log("\n..........................\n")
 
-      }
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+      
+    
+       };
 
-}
+
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
+
+
+  
+
 
 // Spotify-this-song function
 function spotifyThis(userInput) {
@@ -59,16 +67,17 @@ function spotifyThis(userInput) {
   spotify
     .search({ type: 'track', query: userInput, limit: 10 })
     .then(function (response) {
-         var dataArr=response.tracks.items[i],
-        for (let i = 0; i < dataArr.length; i++) {
+        
+        var songData =response.tracks.items[0]
+        for (let i = 0; i < songData.length; i++) {
          
           
-        }
+        
       console.log(JSON.stringify(response.tracks.items[0], null, 2));
       console.log("\n..........................\n")
 
       //Spotify Artists
-      console.log(JSON.stringify(response.tracks.items[0].artists[0].name));
+      console.log(response.tracks.items[0].artists[0].name);
       console.log("\n..........................\n")
      
 
@@ -86,6 +95,9 @@ function spotifyThis(userInput) {
 
       //If no song is provided by default put "The Sign" by Ace of Base.
       console.log()
+      }
+
+
     })
     .catch(function (err) {
       console.log(err);
@@ -105,30 +117,40 @@ function movie(movieName) {
       
 
       //title of the movie
+
+      console.log("\n..........................\n")
+      console.log("Movie Name: ")
       console.log(movieData.Title)
-      console.log("\n..........................\n")
       //Year the movie came out
+      console.log(" Year:")
       console.log(movieData.Year)
-      console.log("\n..........................\n")
+      
 
       //IMDB rating of Movie
+      console.log("Movie rating on IMDB: ")
       console.log(movieData.Ratings[0])
-      console.log("\n..........................\n")
+
+      
 
       //Rotten Tomatoes Rating of the Movie
+      console.log("Movie rating on Rotten Tomatoes: ")
       console.log(movieData.Ratings[1])
-      console.log("\n..........................\n")
+      
 
       //Country where the movie was produced
+      console.log("Country the movie was made in: ")
       console.log(movieData.Country)
-      console.log("\n..........................\n")
+      
 
       //Plot of the Movie
+      console.log("Movie Plot: ")
       console.log(movieData.Plot)
-      console.log("\n..........................\n")
+      
 
       //Actors in the movie
+      console.log("Actors in the film: ")
       console.log(movieData.Actors)
+      console.log("\n..........................\n")
     })
 }
 
