@@ -173,6 +173,8 @@ function doWhatItSays() {
         return console.log(err);
       }
       dataArr = data.split(",");
+    //putting my information into an array and splitting in commas
+
     console.log(dataArr)
     //have the runner function going throuugh the switchboard and userinput to get a result
     runner(dataArr[0],dataArr[1])
