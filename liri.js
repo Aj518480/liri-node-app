@@ -10,7 +10,7 @@ var spotify = new Spotify(keys.spotify);
 
 
 //Made a variable for the switchboard  run all the functions needed for Liri
-var switchboard = process.argv[2];
+var switchBoard = process.argv[2];
 
 
 //Made a variable to grab all the argvs from the user's input after the second index
@@ -26,26 +26,26 @@ function concert(artist) {
     .then(function (response){
       
       var bandData = response.data;
-      console.log(bandData);
       
     
       for (let i = 0; i < bandData.length; i++) {
       
+       storedData=bandData[i]
        
-
-       console.log(bandData.venue);
-      console.log("\n..........................\n")
+       
+        //Venue location
+      console.log(storedData.venue.name);
+      
 
        //venue location
-      console.log(bandData.venue.country)
-      console.log("\n..........................\n")
-
-
+      console.log(storedData.venue.country)
       
-       // date of event using moment.js
-      console.log(bandData.datetime).moment(show.datetime).format("MM/DD/YYYY")
-       console.log("\n..........................\n")
 
+       // date of event using moment.js
+    
+      var showTime=moment(storedData.datetime).format("MM/DD/YYYY")
+       console.log(showTime)
+        console.log("\n.........................\n")
       
     
        };
@@ -62,39 +62,55 @@ function concert(artist) {
 
 
 // Spotify-this-song function
-function spotifyThis(userInput) {
+function spotifyThis(song) {
 //conditinal of check for empty string to default song
+console.log(song)
+
+var song = song
+
+if(!song) {
+  console.log("help us")
+
+var song="Ace of base the sign";
+console.log(song)
+ 
+}
+
+console.log(song)
+
   spotify
-    .search({ type: 'track', query: userInput, limit: 10 })
+    .search({ type: 'track', query: song, limit: 10 })
     .then(function (response) {
         
-        var songData =response.tracks.items[0]
-        for (let i = 0; i < songData.length; i++) {
+        var songData =response.tracks.items
+        console.log(response.tracks.items.length)
+      
+       for (let i = 0; i < songData.length; i++) {
          
           
         
-      console.log(JSON.stringify(response.tracks.items[0], null, 2));
-      console.log("\n..........................\n")
+      // console.log(JSON.stringify(response.tracks.items[0], null, 2));
+      // console.log("\n..........................\n")
 
-      //Spotify Artists
-      console.log(response.tracks.items[0].artists[0].name);
-      console.log("\n..........................\n")
+      // Spotify Artists
+       console.log(response.tracks.items[0].artists[0].name);
+       console.log("\n..........................\n")
      
 
       //Spotify Song Name
-      console.log(response.tracks.items[0].name);
+       console.log(response.tracks.items[0].name);
       console.log("\n..........................\n") 
 
-      //Link of Song
-      console.log(response.tracks.items[0].preview_url);
+      // Link of Song
+       console.log(response.tracks.items[0].preview_url);
       console.log("\n..........................\n")
 
-      //Album of Song
+      // Album of Song
        console.log(response.tracks.items[0].album.name);
        console.log("\n..........................\n")
 
-      //If no song is provided by default put "The Sign" by Ace of Base.
-      console.log()
+      // If no song is provided by default put "The Sign" by Ace of Base.
+      // console.log()
       }
 
 
@@ -103,6 +119,7 @@ function spotifyThis(userInput) {
       console.log(err);
     });
 }
+
 
 // Movie-this function
 function movie(movieName) {
@@ -159,17 +176,25 @@ function movie(movieName) {
 
 // Do-what-it-says function
 function doWhatItSays() { 
-     // use fs
-    //us split sb use the user
-    // fs.readFile("random.txt", "utf8", (err, data) => {
-    //   if (err) throw err;
-    //   console.log(data);
-    // });
-//week5 day 4
-}
+
+     fs.readFile("random.txt", "utf8", (err, data) => {
+
+      if (err) {
+        return console.log(err);
+      }
+      dataArr = data.split(",");
+    console.log(dataArr)
+    runner(dataArr[0],dataArr[1])
+  
+    });
+    
+  }
+  
+var runner = function(switchBoard,userInput){
+
 
 //Switch with a parameter of switchboard variable- Able to switch in between functions
-switch (switchboard) {
+switch (switchBoard) {
   case "movie-this":
     movie(userInput);
     break;
@@ -187,6 +212,6 @@ switch (switchboard) {
     break;
 }
 
-
-
+}
+runner(switchBoard,userInput)
 
