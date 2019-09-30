@@ -33,19 +33,16 @@ function concert(artist) {
        storedData=bandData[i]
        
        
-        //Venue location
+      //Venue location
       console.log(storedData.venue.name);
-      
-
+    
        //venue location
       console.log(storedData.venue.country)
-      
 
        // date of event using moment.js
-    
       var showTime=moment(storedData.datetime).format("MM/DD/YYYY")
        console.log(showTime)
-        console.log("\n.........................\n")
+       console.log("\n.....................................\n")
       
     
        };
@@ -63,54 +60,47 @@ function concert(artist) {
 
 // Spotify-this-song function
 function spotifyThis(song) {
-//conditinal of check for empty string to default song
-console.log(song)
 
-var song = song
+// If no song is provided by default put "The Sign" by Ace of Base.
+//conditinal of check for empty string to default song
 
 if(!song) {
-  console.log("help us")
-
 var song="Ace of base the sign";
-console.log(song)
- 
-}
 
-console.log(song)
+}
 
   spotify
     .search({ type: 'track', query: song, limit: 10 })
     .then(function (response) {
         
+      //setting a variable to hold the path to the data of the song to shorten it
         var songData =response.tracks.items
-        console.log(response.tracks.items.length)
+
+      //console.log(response.tracks.items.length)
       
+      //looping through the 10 results
        for (let i = 0; i < songData.length; i++) {
          
           
-        
-      // console.log(JSON.stringify(response.tracks.items[0], null, 2));
-      // console.log("\n..........................\n")
-
+      
       // Spotify Artists
        console.log(response.tracks.items[0].artists[0].name);
-       console.log("\n..........................\n")
-     
-
+       
+    
       //Spotify Song Name
        console.log(response.tracks.items[0].name);
-      console.log("\n..........................\n") 
+       
 
       // Link of Song
        console.log(response.tracks.items[0].preview_url);
-      console.log("\n..........................\n")
+      
 
       // Album of Song
        console.log(response.tracks.items[0].album.name);
        console.log("\n..........................\n")
 
-      // If no song is provided by default put "The Sign" by Ace of Base.
-      // console.log()
+      
+      
       }
 
 
@@ -134,10 +124,10 @@ function movie(movieName) {
       
 
       //title of the movie
-
       console.log("\n..........................\n")
       console.log("Movie Name: ")
       console.log(movieData.Title)
+
       //Year the movie came out
       console.log(" Year:")
       console.log(movieData.Year)
@@ -148,7 +138,6 @@ function movie(movieName) {
       console.log(movieData.Ratings[0])
 
       
-
       //Rotten Tomatoes Rating of the Movie
       console.log("Movie rating on Rotten Tomatoes: ")
       console.log(movieData.Ratings[1])
@@ -176,6 +165,7 @@ function movie(movieName) {
 
 // Do-what-it-says function
 function doWhatItSays() { 
+//reading through the document "random txt" file and splitting up the data into an array
 
      fs.readFile("random.txt", "utf8", (err, data) => {
 
@@ -184,6 +174,7 @@ function doWhatItSays() {
       }
       dataArr = data.split(",");
     console.log(dataArr)
+    //have the runner function going throuugh the switchboard and userinput to get a result
     runner(dataArr[0],dataArr[1])
   
     });
