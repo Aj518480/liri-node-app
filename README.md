@@ -14,6 +14,6 @@
 ![ConcertThis](https://user-images.githubusercontent.com/53452871/65931305-22090100-e3d7-11e9-86c3-8e0cb3b5f26e.PNG)
 
 
-###Technologies used:
-Node.js
-Javascript
+### Technologies used:
+  *Node.js
+  *Javascript
